@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signature Math Tools — The Signature Image Grid and Measure</title>
+<meta name="description" content="Signature versions of every deterministic math and grid measurement tool: unit converter, triangle solver, polygon area, golden ratio, aspect ratio — all in standard math.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="brand">
+<h1><span class="rule">&#9783;</span> Signature Math Tools</h1>
+<p>Every deterministic math and grid-measurement tool, Signature-built, in standard math. Same answers every time.</p>
+</header>
+<nav class="tabs" aria-label="Site sections">
+<a href="index.html">Workbench</a><span class="here">Math Tools</span><a href="archive.html">Measure Archive</a><a href="guide.html">Guide</a>
+</nav>
+<main id="main">
+<section class="card"><h2><span class="n">1</span>Unit converter</h2>
+<div class="btnrow">
+<label>Value <input id="u-val" type="number" step="any" value="1" style="width:7em"></label>
+<label>From <select id="u-from"><option>mm</option><option>cm</option><option selected>m</option><option>km</option><option>in</option><option>ft</option><option>yd</option><option>mi</option><option>px</option></select></label>
+<label>To <select id="u-to"><option>mm</option><option selected>cm</option><option>m</option><option>km</option><option>in</option><option>ft</option><option>yd</option><option>mi</option><option>px</option></select></label>
+<button class="btn" id="u-go" type="button">Convert</button></div>
+<div class="readout" id="u-out" role="status"></div></section>
+
+<section class="card"><h2><span class="n">2</span>Right-triangle solver (Pythagoras)</h2>
+<div class="btnrow">
+<label>Leg a <input id="t-a" type="number" step="any" style="width:6em"></label>
+<label>Leg b <input id="t-b" type="number" step="any" style="width:6em"></label>
+<label>Hypotenuse c <input id="t-c" type="number" step="any" style="width:6em"></label>
+<button class="btn" id="t-go" type="button">Solve</button></div>
+<p style="font-size:.9em;opacity:.8">Enter any two — the third, both acute angles, area and perimeter are solved exactly.</p>
+<div class="readout" id="t-out" role="status"></div></section>
+
+<section class="card"><h2><span class="n">3</span>Regular polygon</h2>
+<div class="btnrow">
+<label>Sides <input id="p-n" type="number" min="3" max="12" value="6" style="width:5em"></label>
+<label>Side length <input id="p-s" type="number" step="any" value="10" style="width:6em"></label>
+<button class="btn" id="p-go" type="button">Solve</button></div>
+<div class="readout" id="p-out" role="status"></div></section>
+
+<section class="card"><h2><span class="n">4</span>Golden ratio divider</h2>
+<div class="btnrow">
+<label>Whole length <input id="g-l" type="number" step="any" value="100" style="width:7em"></label>
+<button class="btn" id="g-go" type="button">Divide</button></div>
+<div class="readout" id="g-out" role="status"></div></section>
+
+<section class="card"><h2><span class="n">5</span>Aspect ratio &amp; fit</h2>
+<div class="btnrow">
+<label>Width <input id="a-w" type="number" step="any" value="1920" style="width:7em"></label>
+<label>Height <input id="a-h" type="number" step="any" value="1080" style="width:7em"></label>
+<label>Fit inside <input id="a-fw" type="number" step="any" value="800" style="width:6em"> × <input id="a-fh" type="number" step="any" value="600" style="width:6em"></label>
+<button class="btn" id="a-go" type="button">Solve</button></div>
+<div class="readout" id="a-out" role="status"></div></section>
+
+<section class="card"><h2><span class="n">6</span>Circle from diameter</h2>
+<div class="btnrow">
+<label>Diameter <input id="c-d" type="number" step="any" value="10" style="width:7em"></label>
+<button class="btn" id="c-go" type="button">Solve</button></div>
+<div class="readout" id="c-out" role="status"></div></section>
+</main>
+<footer>The Signature Image Grid and Measure &middot; standard math, no assumptions</footer>
+<nav class="jahnet" role="navigation" aria-label="JAH Network">
+  <div class="t">THE JAH NETWORK</div>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-math">1 Signature Math</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-calculator">2 Calculator</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-dictionary">3 Dictionary</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-wiki">4 JAH Wiki</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks">5 JAH-N Wiki</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-llama">6 Llama</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models">7 Phone Book</a>
+  <a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog">8 Patents</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Specs</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems">10 PCs</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-books">11 Books</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-comics">12 Comics</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-newspapers">13 News</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-backend">14 Mix Lab</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators">15 Generators</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab">16 AI Mix</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics">17 Olympics</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker">18 Chips</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-app-archive">19 Apps</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher">20 Robots</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver">21 Lab</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker">22 Pixel</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker">23 Music</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-fixit">24 Fix-It</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-university">25 University</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-earth">26 Earth</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-flight-school">27 Flight</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-game-store">28 Games</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-website-creator">29 Sites</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-antivirus">30 Antivirus</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-os-updater">31 OS Updater</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-space-mapping">32 Space</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-cookbook">33 Cookbook</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-spell-check">34 Spell Check</a>
+  <span class="here">35 Grid Measure · YOU ARE HERE</span>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall">36 Cyber Mall</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-3d-print">37 3D Mall</a>
+</nav>
+<script src="js/mtools.js"></script>
+</body>
+</html>

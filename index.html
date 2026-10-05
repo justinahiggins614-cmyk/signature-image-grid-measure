@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Signature Image Grid and Measure — grid it, measure it, recreate it</title>
+<meta name="description" content="Upload any image or video frame: grid overlays, rulers, protractors, area tools, 360° rotation, real-unit calibration, and a full recreation report. Plus Signature math tools and a measurement archive marching to 1,000,000.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="brand">
+<h1><span class="rule">&#9783;</span> The Signature Image Grid and Measure</h1>
+<p>Put it on the grid. Measure every aspect in standard math. Rotate the full 360&deg;. Recreate it exactly.</p>
+</header>
+<nav class="tabs" aria-label="Site sections">
+<span class="here">Workbench</span><a href="tools.html">Math Tools</a><a href="archive.html">Measure Archive</a><a href="guide.html">Guide</a>
+</nav>
+<main id="main">
+<div id="flash" class="card" style="display:none" role="status"></div>
+
+<section class="card" aria-label="Load media">
+<h2><span class="n">1</span>Load your image or video</h2>
+<div class="btnrow">
+<label class="btn ghost" style="cursor:pointer">Choose image or video
+<input id="file" type="file" accept="image/*,video/*" style="display:none"></label>
+<button class="btn ghost" id="capframe" type="button" style="display:none">Capture video frame</button>
+<button class="btn ghost" id="sample" type="button">Try the sample grid</button>
+</div>
+<video id="vid" controls playsinline style="display:none;max-width:100%;border-radius:8px"></video>
+</section>
+
+<section class="card" aria-label="Workbench">
+<h2><span class="n">2</span>Workbench — grid &amp; measure</h2>
+<div class="toolbar" role="toolbar" aria-label="Measure tools">
+<button type="button" data-tool="measure" class="on">Ruler</button>
+<button type="button" data-tool="angle">Protractor</button>
+<button type="button" data-tool="area">Area</button>
+<button type="button" data-tool="color">Color</button>
+<button type="button" data-tool="calibrate">Calibrate</button>
+<button type="button" id="clearm">Clear marks</button>
+</div>
+<div class="btnrow">
+<label>Grid <select id="gridtype" aria-label="Grid type">
+<option value="square">Squares</option><option value="thirds">Thirds</option>
+<option value="golden">Golden ratio</option><option value="diagonal">Diagonals</option>
+<option value="none">Off</option></select></label>
+<label>Grid size <input id="gridsize" type="range" min="10" max="200" value="50" aria-label="Grid size"></label>
+<label>Rotate <input id="rot" type="range" min="0" max="360" value="0" aria-label="Rotation degrees"> <span id="rotv">0&deg;</span></label>
+</div>
+<canvas id="stage" width="800" height="500" aria-label="Measurement canvas"></canvas>
+<div class="readout" id="readout" role="status">Load an image to begin.</div>
+<div id="calpanel" class="card" style="display:none">
+<h2>Calibrate to real units</h2>
+<p>You drew a line <b id="calpx"></b> px long. How long is it in the real world?</p>
+<div class="btnrow">
+<label>Length <input id="callen" type="number" min="0" step="any" style="width:7em"></label>
+<label>Unit <select id="calunit"><option>mm</option><option>cm</option><option selected>m</option><option>km</option><option>in</option><option>ft</option></select></label>
+<button class="btn" id="calgo" type="button">Set scale</button>
+</div>
+</div>
+</section>
+
+<section class="card" aria-label="Results">
+<h2><span class="n">3</span>Measurements &amp; recreation report</h2>
+<table class="measure" id="mtable" aria-label="Measurements">
+<thead><tr><th>#</th><th>Kind</th><th>Reading</th><th></th></tr></thead><tbody></tbody></table>
+<div class="btnrow">
+<button class="btn" id="report" type="button">Build recreation report</button>
+<button class="btn ghost" id="dljson" type="button">Download report (JSON)</button>
+<button class="btn ghost" id="dlpng" type="button">Download marked image (PNG)</button>
+<button class="btn ghost" id="copyrep" type="button">Copy report</button>
+</div>
+<pre class="report" id="reportout" aria-label="Recreation report">No report yet — add some measurements first.</pre>
+</section>
+</main>
+<footer>The Signature Image Grid and Measure &middot; every number in standard math &middot; <span id="countline"></span></footer>
+<nav class="jahnet" role="navigation" aria-label="JAH Network">
+  <div class="t">THE JAH NETWORK</div>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-math">1 Signature Math</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-calculator">2 Calculator</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-dictionary">3 Dictionary</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-wiki">4 JAH Wiki</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-n-wiki-leaks">5 JAH-N Wiki</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-llama">6 Llama</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-ai-models">7 Phone Book</a>
+  <a href="https://justinahiggins614-cmyk.github.io/cyber-patent-catalog">8 Patents</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-one-archive/specs.html">9 Specs</a>
+  <a href="https://justinahiggins614-cmyk.github.io/jah-computer-systems">10 PCs</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-books">11 Books</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-comics">12 Comics</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-newspapers">13 News</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-backend">14 Mix Lab</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-boundless-generators">15 Generators</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-mixlab">16 AI Mix</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-olypics">17 Olympics</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-chip-maker">18 Chips</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-app-archive">19 Apps</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-robot-matcher">20 Robots</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-experiment-solver">21 Lab</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-image-video-maker">22 Pixel</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-ai-song-maker">23 Music</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-fixit">24 Fix-It</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-university">25 University</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-earth">26 Earth</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-flight-school">27 Flight</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-game-store">28 Games</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-website-creator">29 Sites</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-antivirus">30 Antivirus</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-os-updater">31 OS Updater</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-space-mapping">32 Space</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-cookbook">33 Cookbook</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-spell-check">34 Spell Check</a>
+  <span class="here">35 Grid Measure · YOU ARE HERE</span>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-cyber-mega-mall">36 Cyber Mall</a>
+  <a href="https://justinahiggins614-cmyk.github.io/signature-3d-print">37 3D Mall</a>
+</nav>
+<script src="js/measure.js"></script>
+</body>
+</html>
