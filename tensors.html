@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tensors — The Signature Image Grid and Measure</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0a0e14;color:#dfe6f0}
+.tabs{display:flex;gap:8px;padding:10px;background:#111827;border-bottom:1px solid #2a3444;flex-wrap:wrap}
+.tabs a,.tabs .here{padding:8px 14px;border-radius:6px;text-decoration:none;color:#9fb3cc}
+.tabs .here{background:#1f6feb;color:#fff}
+.tabs a:hover{background:#1c2736}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.card{background:#111827;border:1px solid #2a3444;border-radius:10px;padding:16px;margin:12px 0}
+h1{color:#7dd3fc} h2{color:#a5b4fc}
+button{background:#1f6feb;color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;font:inherit;margin:4px}
+button:hover{background:#388bfd}
+input,textarea,select{background:#0d1117;color:#dfe6f0;border:1px solid #2a3444;border-radius:6px;padding:10px;font:inherit;width:100%;box-sizing:border-box;margin:6px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+#chatlog{height:220px;overflow-y:auto;background:#0d1117;border:1px solid #2a3444;border-radius:6px;padding:10px;margin:8px 0}
+.msg{margin:6px 0;padding:6px 10px;border-radius:6px}
+.msg.ai{background:#1c2a44} .msg.user{background:#12351f;text-align:right}
+.result{background:#0d1117;border:1px solid #2a3444;border-radius:6px;padding:12px;margin:8px 0;font-family:monospace;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<nav class="tabs" aria-label="Site sections">
+<a href="index.html">Workbench</a><a href="tools.html">Math Tools</a><a href="archive.html">Measure Archive</a><span class="here">Tensors</span><a href="guide.html">Guide</a>
+</nav>
+<div class="wrap">
+<h1>🧮 Tensor Lab</h1>
+<p>Map and do math on the relations between <b>Vectors</b>, <b>Scalars</b>, and other <b>Tensors</b> — as applied to information from the grid. Add your measurements to tensors when you have enough data.</p>
+
+<div class="card">
+<h2>1. Your Data</h2>
+<p>Paste measurements, upload a file, or pull from the Measure Archive:</p>
+<textarea id="datain" rows="4" placeholder="Paste numbers, e.g.: 1.2, 3.4, 5.6  (or JSON arrays)"></textarea>
+<div class="grid2">
+<div><input type="file" id="fileup" accept=".txt,.csv,.json"></div>
+<div><button onclick="pullArchive()">📥 Pull from Measure Archive</button></div>
+</div>
+<button onclick="addToTensor()">➕ Add to Tensor</button>
+<div id="tensorstatus" class="result" style="display:none"></div>
+</div>
+
+<div class="card">
+<h2>2. Vector & Scalar Math</h2>
+<div class="grid2">
+<div>
+<h3>Vector A</h3><input id="veca" placeholder="e.g. 1,2,3">
+<h3>Vector B</h3><input id="vecb" placeholder="e.g. 4,5,6">
+</div>
+<div>
+<h3>Scalar</h3><input id="scalar" placeholder="e.g. 2.5" value="2">
+</div>
+</div>
+<button onclick="vecAdd()">A + B</button>
+<button onclick="vecDot()">A · B (dot)</button>
+<button onclick="vecCross()">A × B (cross)</button>
+<button onclick="vecScale()">Scalar × A</button>
+<button onclick="vecMag()">|A| Magnitude</button>
+<div id="mathout" class="result" style="display:none"></div>
+</div>
+
+<div class="card">
+<h2>3. AI Host — Tensor Designer</h2>
+<p>Talk to the AI host. Ask it to design a tensor, explain relations, or suggest what to measure next.</p>
+<div id="chatlog"><div class="msg ai"><b>Tensor AI:</b> Hello! I'm your tensor design assistant. Tell me what you're measuring, or ask me about vectors, scalars, and how they relate as information.</div></div>
+<input id="chatin" placeholder="Ask about tensors...">
+<button onclick="askAI()">Send</button>
+</div>
+
+</div>
+<nav class="jahnet" role="navigation" aria-label="JAH Network" style="margin-top:24px;padding:16px;background:#111827;border-top:1px solid #2a3444;text-align:center;font-size:.85em;color:#9fb3cc">
+<span>THE JAH NETWORK · SITE 35 OF 37</span><br>
+<a href="https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/" style="color:#7dd3fc">35 Grid+Measure · YOU ARE HERE</a>
+</nav>
+
+<script>
+var tensorData=[];
+function parseNums(s){
+  try{
+    if(s.trim().startsWith('['))return JSON.parse(s);
+  }catch(e){}
+  return s.split(/[,;\s]+/).map(Number).filter(function(n){return !isNaN(n);});
+}
+function addToTensor(){
+  var v=parseNums(document.getElementById('datain').value);
+  if(!v.length){alert('Paste some numbers first');return;}
+  tensorData=tensorData.concat(v);
+  var el=document.getElementById('tensorstatus');
+  el.style.display='block';
+  el.textContent='Tensor now holds '+tensorData.length+' values.\n'+
+    (tensorData.length>=3?'✓ Enough data — you can run vector math below.':'Need at least 3 values for vector math.');
+}
+document.getElementById('fileup').addEventListener('change',function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){document.getElementById('datain').value=r.result;};
+  r.readAsText(f);
+});
+function pullArchive(){
+  // Pull latest measurements from the archive API
+  fetch('data/api.json').then(function(r){return r.json();}).then(function(j){
+    var vals=[];
+    if(j.measurements){j.measurements.slice(0,20).forEach(function(m){
+      if(m.value!==undefined)vals.push(m.value);
+    });}
+    if(vals.length){
+      document.getElementById('datain').value=vals.join(', ');
+      addToTensor();
+    }else{document.getElementById('datain').value='[1,2,3,4,5]';addToTensor();}
+  }).catch(function(){
+    document.getElementById('datain').value='[1,2,3,4,5]';addToTensor();
+  });
+}
+function getVec(id){
+  return parseNums(document.getElementById(id).value);
+}
+function showMath(t){
+  var el=document.getElementById('mathout');el.style.display='block';el.textContent=t;
+}
+function vecAdd(){
+  var a=getVec('veca'),b=getVec('vecb');
+  if(a.length!==b.length||!a.length){showMath('Vectors must be same length and non-empty');return;}
+  showMath('A + B = ['+a.map(function(v,i){return (v+b[i]).toFixed(3);}).join(', ')+']');
+}
+function vecDot(){
+  var a=getVec('veca'),b=getVec('vecb');
+  if(a.length!==b.length||!a.length){showMath('Vectors must be same length and non-empty');return;}
+  var d=a.reduce(function(s,v,i){return s+v*b[i];},0);
+  showMath('A · B = '+d.toFixed(4)+'\n(Cosine similarity factor: measures alignment as information)');
+}
+function vecCross(){
+  var a=getVec('veca'),b=getVec('vecb');
+  if(a.length!==3||b.length!==3){showMath('Cross product needs 3D vectors');return;}
+  var c=[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+  showMath('A × B = ['+c.map(function(v){return v.toFixed(3);}).join(', ')+']\n(Perpendicular tensor — captures rotational relation)');
+}
+function vecScale(){
+  var a=getVec('veca'),s=parseFloat(document.getElementById('scalar').value)||1;
+  if(!a.length){showMath('Enter vector A');return;}
+  showMath(s+' × A = ['+a.map(function(v){return (v*s).toFixed(3);}).join(', ')+']\n(Scalar scales magnitude, preserves direction)');
+}
+function vecMag(){
+  var a=getVec('veca');
+  if(!a.length){showMath('Enter vector A');return;}
+  var m=Math.sqrt(a.reduce(function(s,v){return s+v*v;},0));
+  showMath('|A| = '+m.toFixed(4)+'\n(Magnitude: the scalar information content of the vector)');
+}
+// AI Host - rule-based tensor assistant
+function askAI(){
+  var q=document.getElementById('chatin').value.trim();
+  if(!q)return;
+  var log=document.getElementById('chatlog');
+  log.innerHTML+='<div class="msg user"><b>You:</b> '+q.replace(/</g,'&lt;')+'</div>';
+  document.getElementById('chatin').value='';
+  var a=tensorAnswer(q.toLowerCase());
+  log.innerHTML+='<div class="msg ai"><b>Tensor AI:</b> '+a+'</div>';
+  log.scrollTop=log.scrollHeight;
+}
+function tensorAnswer(q){
+  if(/vector/.test(q)&&/scalar/.test(q))
+    return 'A <b>scalar</b> is rank-0 (single number, e.g. temperature). A <b>vector</b> is rank-1 (magnitude + direction, e.g. velocity). Vectors scale by scalars; their dot product yields a scalar measuring alignment. As information: scalars are facts, vectors are facts with direction.';
+  if(/vector/.test(q))
+    return 'A vector has magnitude and direction. In this lab, enter comma-separated numbers as Vector A and B, then try dot product (alignment), cross product (perpendicular relation, 3D only), or scalar multiplication.';
+  if(/scalar/.test(q))
+    return 'A scalar is a single number — no direction. It scales vectors (stretch/shrink) and results from dot products. Magnitude |A| converts a vector to its scalar information content.';
+  if(/tensor/.test(q))
+    return 'Tensors generalize: scalar = rank 0, vector = rank 1, matrix = rank 2. Higher ranks capture multi-way relations. Your grid measurements become tensor entries — add 3+ values above, then map relations with the math tools.';
+  if(/design|create|build/.test(q))
+    return 'To design a tensor: (1) Add your measurement data above, (2) decide the rank — use vectors for directional data, scalars for magnitudes, (3) use dot/cross products to map relations. Tell me what you are measuring and I will suggest a structure.';
+  if(/upload|file|pull|data/.test(q))
+    return 'You can paste numbers directly, upload a .txt/.csv/.json file, or hit "Pull from Measure Archive" to grab the latest grid measurements. Once you have 3+ values, hit "Add to Tensor".';
+  return 'I can help with: <b>vectors</b>, <b>scalars</b>, <b>tensors</b>, <b>designing</b> a tensor for your data, or <b>uploading/pulling</b> data. What are you working on?';
+}
+document.getElementById('chatin').addEventListener('keydown',function(e){
+  if(e.key==='Enter')askAI();
+});
+</script>
+</body>
+</html>
