@@ -43,7 +43,7 @@ def main():
     if size > 800 * 1024 * 1024:
         print("GUARD: data over 800MB, not pushing"); sys.exit(2)
     r = sh('git add -A && git -c user.name="JAH System" -c user.email="jah@grid.local" '
-           'commit -qm "Grid drip: +120 measurements (%d total)" && git push -q origin main' % idx["total"])
+           'commit -qm "Grid drip: +120 measurements (%d total)" && git push -q origin master' % idx["total"])
     if r.returncode != 0:
         print("push failed: " + r.stderr[:300]); sys.exit(1)
     print("drip done: +120 measurements, %d total" % idx["total"])
