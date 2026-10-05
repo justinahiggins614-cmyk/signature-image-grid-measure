@@ -1,7 +1,8 @@
 {
  "chunks": [
   "chunk-0001.json",
-  "chunk-0002.json"
+  "chunk-0002.json",
+  "chunk-0003.json"
  ],
- "total": 240
+ "total": 360
 }
