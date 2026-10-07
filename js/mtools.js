@@ -48,6 +48,7 @@ function gcd(x,y){x=Math.abs(Math.round(x));y=Math.abs(Math.round(y));while(y){v
 $("a-go").addEventListener("click",function(){
   var w=num("a-w"),h=num("a-h"),fw=num("a-fw"),fh=num("a-fh");
   if(!(w>0&&h>0)){$("a-out").textContent="Enter width and height.";return;}
+  if(!(fw>0&&fh>0)){$("a-out").textContent="Enter fit width and height.";return;}
   var g=gcd(w,h),sc=Math.min(fw/w,fh/h),nw=w*sc,nh=h*sc;
   $("a-out").innerHTML="Ratio: "+(w/g)+":"+ (h/g)+" ("+(w/h).toFixed(4)+":1)"+
    "<br>Fitted inside "+fw+"×"+fh+": "+nw.toFixed(1)+"×"+nh.toFixed(1)+" (no distortion)";

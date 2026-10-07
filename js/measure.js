@@ -283,8 +283,8 @@ $("dljson").addEventListener("click",function(){
 });
 $("copyrep").addEventListener("click",function(){
   var t=$("reportout").textContent;
-  if(document.execCommand("copy")){}
-  navigator.clipboard&&navigator.clipboard.writeText(t);
+  try{if(document.execCommand("copy")){}}catch(e){}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).catch(function(){});}catch(e){}
   var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);
   ta.select();try{document.execCommand("copy");}catch(e){}
   document.body.removeChild(ta);setRead("Report copied.");

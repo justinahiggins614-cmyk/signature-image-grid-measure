@@ -80,6 +80,8 @@ input,textarea,select{background:#0d1117;color:#dfe6f0;border:1px solid #2a3444;
 <script>
 var tensorData=[];
 function parseNums(s){
+  s=String(s==null?"":s);
+  if(!s.trim())return [];
   try{
     if(s.trim().startsWith('['))return JSON.parse(s);
   }catch(e){}
