@@ -2,8 +2,8 @@
  "site": "The Signature Image Grid and Measure",
  "site_number": 37,
  "site_url": "https://justinahiggins614-cmyk.github.io/signature-image-grid-measure/",
- "updated": "2026-10-09T11:48:52Z",
- "records": 5760,
+ "updated": "2026-10-09T13:49:02Z",
+ "records": 5880,
  "goal": 1000000,
  "api": {
   "measures": "data/measures/chunk-####.json",
