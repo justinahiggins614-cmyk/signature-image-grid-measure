@@ -2,10 +2,10 @@
  "manifest_id": "JAH-GRID-MANIFEST",
  "site": "The Signature Image Grid and Measure",
  "site_number": 37,
- "updated": "2026-11-22T07:48:51Z",
- "total_records": 106200,
+ "updated": "2026-11-22T09:48:53Z",
+ "total_records": 106440,
  "goal": 1000000,
- "remaining_to_goal": 893800,
- "progress": "106200 / 1000000 MEASUREMENTS",
+ "remaining_to_goal": 893560,
+ "progress": "106440 / 1000000 MEASUREMENTS",
  "data": "data/measures/"
 }
